@@ -22,13 +22,27 @@ Inorder to check the NUMA configuration from linux, we installed numactl on linu
 
 ## Code
 
-1. We implemented a basic form of lottery scheduling where each process was a dummy. We implemented the algorithm was lottery scheduling and ensured that it works.
-2. The next step was to consider NUMA into the picture. We added a struct with numa node affinity.
-3. For the process with a matching numa node, we provided that process with 5 extra tickets.
-4. Rest of the process was regular lottery scheduling to decide the winner.
+We started with implementing a basic lottery scheduling algorithm for process execution. The main idea behind lottery scheduling is to allocate a certain number of lottery tickets to each process based on its priority or other factors, and then randomly select a winning ticket to determine the next process to be scheduled for execution.
 
+Initially, we implemented a simple version of lottery scheduling without considering any additional factors. In this version, we created a struct process_info to store information about each process, including its process ID (PID), name, burst time (simulated), and the number of lottery tickets assigned to it.
+
+The code included the following functions:
+
+assign_tickets: This function assigned lottery tickets to each process based on its burst time. The formula used was tickets = burst_time / 10 + 10.
+run_lottery: This function implemented the lottery scheduling algorithm. It generated a random winning ticket number and iterated through the processes, summing up their tickets. The process whose cumulative ticket count exceeded the winning ticket number was declared the winner.
+main: This function created real child processes by forking and executing various commands (like ls, sleep, grep, and tar). It then called the assign_tickets and run_lottery functions to perform lottery scheduling and determine the winning process.
+After implementing the basic lottery scheduling algorithm, we extended the code to incorporate Non-Uniform Memory Access (NUMA) awareness. NUMA is a computer memory design used in modern multiprocessor systems, where the memory access time depends on the memory location relative to the processor.
+
+To incorporate NUMA awareness, we made the following changes:
+
+We added a new field numa_node to the process_info struct, which represents the preferred NUMA node for each process.
+We modified the assign_tickets function to assign_tickets_based_on_numa. In this function, we first assigned tickets based on the burst time, as before. Then, if NUMA was available on the system, we checked if the process's preferred NUMA node matched the system's preferred NUMA node. If they matched, we awarded the process with 5 extra tickets.
+The rationale behind awarding extra tickets to processes with matching NUMA node preferences is to prioritize their execution, as they are likely to experience better performance due to reduced memory access latency.
+
+The rest of the code remained largely the same, with the run_lottery function still implementing the lottery scheduling algorithm to select the winning process.
+
+In summary, we started with a basic implementation of lottery scheduling, which involved assigning tickets to processes based on their burst times and randomly selecting a winner. We then extended this implementation to incorporate NUMA awareness by considering the preferred NUMA node for each process and awarding extra tickets to processes with matching NUMA node preferences. This NUMA-aware lottery scheduling aims to improve overall system performance by prioritizing the execution of processes that are likely to experience lower memory access latency.
 ## Next Steps
 
-The next step is to implement lottery scheduling with having actual system calls instead of dummy process and also add some extra features mentioned in the decade of wasted cores paper. Also we need to evaluate the execution of different processes and generate graphs for comparison.
-
+The next step is to implement testing bench compute the evaluation by computing turnaround time for these processes and also try to make a GUI with a dashboard and user input via forms.
 
