@@ -42,7 +42,9 @@ The rationale behind awarding extra tickets to processes with matching NUMA node
 The rest of the code remained largely the same, with the run_lottery function still implementing the lottery scheduling algorithm to select the winning process.
 
 In summary, we started with a basic implementation of lottery scheduling, which involved assigning tickets to processes based on their burst times and randomly selecting a winner. We then extended this implementation to incorporate NUMA awareness by considering the preferred NUMA node for each process and awarding extra tickets to processes with matching NUMA node preferences. This NUMA-aware lottery scheduling aims to improve overall system performance by prioritizing the execution of processes that are likely to experience lower memory access latency.
-## Next Steps
+## Evaluation
 
-The next step is to implement testing bench compute the evaluation by computing turnaround time for these processes and also try to make a GUI with a dashboard and user input via forms.
+We built a cfs scheduler and computed the burst time and turn around time and compared them with our dynamic numa lottery schedulers and generating graphs using python matplotlib. based on that we drew conclusions that our code shows better results in comparison with CFS and also with normal lotterry scheduler
+
+T
 
