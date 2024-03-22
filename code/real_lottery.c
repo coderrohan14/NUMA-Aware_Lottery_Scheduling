@@ -69,7 +69,7 @@ int main() {
 
     run_lottery(processes, n, total_tickets);
 
-    // Wait for child processes to finish
+    
     for (int i = 0; i < n; i++) {
         waitpid(processes[i].pid, NULL, 0);
     }
