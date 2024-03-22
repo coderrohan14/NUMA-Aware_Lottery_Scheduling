@@ -42,7 +42,7 @@ int run_lottery(struct process_info *processes, int n) {
             return i; // Return index of the winning process
         }
     }
-    return -1; // Should not happen
+    return -1; 
 }
 
 void execute_process(int winner_index, struct process_info *processes) {
@@ -75,7 +75,7 @@ void execute_process(int winner_index, struct process_info *processes) {
         long burst_time = (processes[winner_index].usage.ru_utime.tv_sec + processes[winner_index].usage.ru_stime.tv_sec) * 1000 +
                           (processes[winner_index].usage.ru_utime.tv_usec + processes[winner_index].usage.ru_stime.tv_usec) / 1000;
         time_t turnaround_time = end_time - processes[winner_index].start_time;
-        // Wait time cannot be directly calculated in this context without more detailed scheduling info
+        
 
         printf("Burst Time: %ld ms, Turnaround Time: %ld s\n", burst_time, turnaround_time);
     } else {
