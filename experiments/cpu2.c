@@ -24,8 +24,6 @@ int main() {
     for (int number = 2; number <= limit; number++) {
         if (isPrime(number)) {
             primeCount++;
-            // Uncomment below to print each prime number found
-            // printf("%d is a prime number.\n", number);
         }
     }
 
