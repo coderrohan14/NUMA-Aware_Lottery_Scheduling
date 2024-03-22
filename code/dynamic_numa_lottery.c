@@ -18,7 +18,7 @@ struct process_info {
 
 void assign_tickets(struct process_info *processes, int n) {
     for (int i = 0; i < n; i++) {
-        // Simplified ticket assignment for demonstration
+        
         processes[i].tickets = 10 + i * 10;
     }
 }
@@ -49,9 +49,9 @@ void execute_process(int winner_index, struct process_info *processes, struct ti
     struct timespec exec_start_time, exec_end_time;
     if (pid == 0) { // Child process
         execl("/bin/sh", "sh", "-c", processes[winner_index].name, NULL);
-        _exit(EXIT_FAILURE); // Should never be reached unless execl fails
+        _exit(EXIT_FAILURE); 
     } else if (pid > 0) { // Parent process
-        clock_gettime(CLOCK_MONOTONIC, &exec_start_time); // Mark execution start time
+        clock_gettime(CLOCK_MONOTONIC, &exec_start_time); 
         wait(NULL); // Wait for the child process to finish
 
         clock_gettime(CLOCK_MONOTONIC, &exec_end_time); // Mark execution end time
