@@ -13,7 +13,7 @@ struct process_info {
 
 void assign_tickets_based_on_numa(struct process_info *processes, int n) {
     for (int i = 0; i < n; i++) {
-        processes[i].tickets = processes[i].burst_time / 10 + 10; // Basic ticket assignment
+        processes[i].tickets = processes[i].burst_time / 10 + 10; 
         if (numa_available() >= 0) {
             int preferred_node = numa_preferred();
             if (processes[i].numa_node == preferred_node) {
